@@ -4,7 +4,7 @@ const centralErrorsHandler = (err, req, res, next) => {
     .status(statusCode)
     .send({
       message: statusCode === 500
-        ? 'На сервере произошла ошибка'
+        ? err.name
         : message,
     });
   next();

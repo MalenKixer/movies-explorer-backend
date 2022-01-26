@@ -10,29 +10,29 @@ require('dotenv').config();
 const app = express();
 const limiter = require('./middlewares/rateLimiter');
 const centralErrorsHandler = require('./middlewares/centralErrorsHandler');
-const incorrectRouteErrorHandler = require('./middlewares/incorrectRouteErrorHandler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const allErrorsHandler = require('./middlewares/errorsHandler');
 
 const corsOptions = require('./utils/const');
 const allRoutes = require('./routes/index');
 
-mongoose.connect('mongodb://localhost:27017/moviesdb');
+const { MONGO_SERVER } = process.env;
 
+mongoose.connect(MONGO_SERVER);
+
+app.use(requestLogger);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(helmet());
 app.use(limiter);
 app.use(cors(corsOptions));
-app.use(requestLogger);
 
 app.use('/', allRoutes);
 
-app.use(errorLogger);
-app.use(incorrectRouteErrorHandler);
 app.use(errors());
 app.use(centralErrorsHandler);
 process.on('uncaughtException', allErrorsHandler);
+app.use(errorLogger);
 
 module.exports = app;

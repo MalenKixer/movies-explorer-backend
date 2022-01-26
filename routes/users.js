@@ -1,17 +1,12 @@
 const router = require('express').Router();
-const { Joi, celebrate } = require('celebrate');
 const escapeHTML = require('../middlewares/escpeHTML');
 const {
   updateUser, getUser, deleteToken,
 } = require('../controllers/users');
+const { celebrateUpdate } = require('../middlewares/validationCelebrate/celebrateUser');
 
 router.delete('/me/token', deleteToken);
 router.get('/me', getUser);
-router.patch('/me', escapeHTML, celebrate({
-  body: Joi.object().keys({
-    name: Joi.string().min(2).max(30),
-    about: Joi.string().min(2).max(30),
-  }),
-}), updateUser);
+router.patch('/me', escapeHTML, celebrateUpdate, updateUser);
 
 module.exports = router;
