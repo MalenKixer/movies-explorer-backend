@@ -47,7 +47,7 @@ module.exports.login = (req, res, next) => {
 module.exports.deleteToken = (req, res) => {
   res
     .clearCookie('jwt')
-    .send({ message: 'token successful delete' });
+    .send({ message: 'Токен успешно удалён' });
 };
 module.exports.getUser = (req, res, next) => {
   User.findById(req.user._id)

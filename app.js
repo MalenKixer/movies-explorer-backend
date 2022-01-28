@@ -16,11 +16,10 @@ const allErrorsHandler = require('./middlewares/errorsHandler');
 const corsOptions = require('./utils/const');
 const allRoutes = require('./routes/index');
 
-const { MONGO_SERVER } = process.env;
+const { NODE_ENV, MONGO_SERVER } = process.env;
 
-mongoose.connect(MONGO_SERVER);
+mongoose.connect(NODE_ENV === 'production' ? MONGO_SERVER : 'mongodb://127.0.0.1:27017/moviesdb');
 
-app.use(requestLogger);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -28,11 +27,13 @@ app.use(helmet());
 app.use(limiter);
 app.use(cors(corsOptions));
 
+app.use(requestLogger);
+
 app.use('/', allRoutes);
 
+app.use(errorLogger);
 app.use(errors());
 app.use(centralErrorsHandler);
 process.on('uncaughtException', allErrorsHandler);
-app.use(errorLogger);
 
 module.exports = app;
