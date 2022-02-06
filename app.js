@@ -7,7 +7,7 @@ const { errors } = require('celebrate');
 require('dotenv').config();
 const cors = require('cors');
 
-const allowOrigins = ['https://domainame.movies.nomoredomains.rocks', 'http://domainame.movies.nomoredomains.rocks'];
+const allowOrigins = ['https://domainame.movies.nomoredomains.rocks', 'http://domainame.movies.nomoredomains.rocks', 'http://localhost:3000'];
 const allowHeaders = 'Origin, X-Requested-With, Content-Type, Accept';
 
 const app = express();
