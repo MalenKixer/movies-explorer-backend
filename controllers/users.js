@@ -14,7 +14,20 @@ module.exports.createUser = (req, res, next) => {
     .then((hash) => User.create({
       name, email, password: hash,
     }))
-    .then((u) => res.send(u))
+    .then((user) => {
+      const token = jwt.sign(
+        { _id: user._id },
+        NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
+        { expiresIn: '7d' },
+      );
+      res
+        .cookie('jwt', token, {
+          maxAge: 3600000 * 24 * 7, // создать токен на 7 дней
+          httpOnly: true,
+          sameSite: true,
+        })
+        .send(user);
+    })
     .catch((err) => {
       if (err.name === 'MongoServerError' && err.code === 11000) {
         next(new ConflictError('Данная почта уже существует. Пожалуйста, введите другую почту'));
