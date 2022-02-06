@@ -62,6 +62,10 @@ module.exports.deleteToken = (req, res) => {
     .clearCookie('jwt')
     .send({ message: 'Токен успешно удалён' });
 };
+module.exports.checkToken = (req, res) => {
+  res
+    .send({ message: 'Проверка прошла успешно, пользователь подтвержден' });
+};
 module.exports.getUser = (req, res, next) => {
   User.findById(req.user._id)
     .orFail(new NotFoundError('Пользователь по указанному _id не найден'))
