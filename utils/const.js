@@ -4,7 +4,7 @@ const UnauthorizedCode = 401;
 const ForbiddenCode = 403;
 const ConflictCode = 409;
 
-const allowOrigins = ['https://domainame.alexander.nomoredomains.rocks', 'http://domainame.alexander.nomoredomains.rocks'];
+const allowOrigins = ['https://domainame.movies.nomoredomains.rocks', 'http://domainame.movies.nomoredomains.rocks'];
 const allowMethods = 'GET, HEAD, PUT, PATCH, POST, DELETE';
 const allowHeaders = 'Origin, X-Requested-With, Content-Type, Accept';
 const corsOptions = {
