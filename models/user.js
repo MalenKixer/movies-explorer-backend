@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
+    minlength: 2,
   },
   email: {
     type: String,
@@ -22,8 +23,8 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    minlength: 8,
     required: true,
+    minlength: 8,
     select: false,
   },
 });
@@ -38,6 +39,11 @@ userSchema.statics.findUserByCredentials = function (email, password, next) {
         return user;
       }))
     .catch((err) => next(err));
+};
+userSchema.methods.toJSON = function () {
+  const obj = this.toObject();
+  delete obj.password;
+  return obj;
 };
 
 module.exports = mongoose.model('user', userSchema);

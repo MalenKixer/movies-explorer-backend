@@ -7,9 +7,9 @@ const auth = (req, res, next) => {
   if (!token) {
     next(new UnauthorizedError('Необходима авторизация'));
   } else {
-    jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', (err, payload) => {
+    jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', (err, payload, callback) => {
       if (err) {
-        next(new UnauthorizedError('Передан неверный логин или пороль'));
+        callback(next(new UnauthorizedError('Передан неверный логин или пороль')));
       } else {
         req.user = payload;
       }
