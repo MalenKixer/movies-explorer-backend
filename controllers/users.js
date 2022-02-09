@@ -24,7 +24,6 @@ module.exports.createUser = (req, res, next) => {
         .cookie('jwt', token, {
           maxAge: 3600000 * 24 * 7, // создать токен на 7 дней
           httpOnly: true,
-          sameSite: true,
         })
         .send(user);
     })
@@ -51,7 +50,6 @@ module.exports.login = (req, res, next) => {
         .cookie('jwt', token, {
           maxAge: 3600000 * 24 * 7, // создать токен на 7 дней
           httpOnly: true,
-          sameSite: true,
         })
         .send({ token });
     })
