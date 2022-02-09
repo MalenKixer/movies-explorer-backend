@@ -61,7 +61,7 @@ module.exports.login = (req, res, next) => {
 };
 module.exports.deleteToken = (req, res) => {
   res
-    .clearCookie('jwt')
+    .clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true })
     .send({ message: 'Токен успешно удалён' });
 };
 module.exports.checkToken = (req, res) => {
