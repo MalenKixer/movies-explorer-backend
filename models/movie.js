@@ -36,6 +36,10 @@ const movieSchema = new mongoose.Schema({
       required: true,
     },
   },
+  id: {
+    type: String,
+    required: true,
+  },
   trailerLink: {
     type: String,
     required: true,
@@ -47,14 +51,8 @@ const movieSchema = new mongoose.Schema({
     },
   },
   owner: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'user',
+    type: String,
     required: true,
-  },
-  likes: {
-    type: [mongoose.Schema.Types.ObjectId],
-    ref: 'user',
-    default: [],
   },
   createdAt: {
     type: Date,
