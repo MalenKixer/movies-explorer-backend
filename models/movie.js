@@ -31,13 +31,15 @@ const movieSchema = new mongoose.Schema({
     required: true,
   },
   image: {
-    type: String,
-    required: true,
-    validate: {
-      validator(avatar) {
-        return validatorUrl(avatar, { protocols: ['http', 'https'], require_protocol: true });
+    url: {
+      type: String,
+      required: true,
+      validate: {
+        validator(avatar) {
+          return validatorUrl(avatar);
+        },
+        message: 'Неправильный формат ссылки',
       },
-      message: 'Неправильный формат ссылки',
     },
   },
   trailer: {
