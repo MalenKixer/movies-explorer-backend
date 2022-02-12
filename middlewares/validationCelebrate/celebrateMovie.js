@@ -12,7 +12,7 @@ module.exports.celebratePost = celebrate({
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
     trailerLink: Joi.string().custom(validateUrl).required(),
-    id: Joi.string().required(),
+    id: Joi.number().required(),
   }),
 });
 module.exports.celebrateDelete = celebrate({
