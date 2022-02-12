@@ -31,7 +31,7 @@ const movieSchema = new mongoose.Schema({
     required: true,
   },
   image: {
-    type: Object,
+    type: mongoose.SchemaTypes.Mixed,
     required: true,
   },
   id: {
