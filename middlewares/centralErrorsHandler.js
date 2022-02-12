@@ -3,6 +3,7 @@ const centralErrorsHandler = (err, req, res, next) => {
   res
     .status(statusCode)
     .send({
+      name: 'error',
       message: statusCode === 500
         ? err.name
         : message,
