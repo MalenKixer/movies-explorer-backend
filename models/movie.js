@@ -23,7 +23,7 @@ const movieSchema = new mongoose.Schema({
     required: true,
   },
   year: {
-    type: String,
+    type: Number,
     required: true,
   },
   description: {
@@ -31,13 +31,11 @@ const movieSchema = new mongoose.Schema({
     required: true,
   },
   image: {
-    url: {
-      type: String,
-      required: true,
-    },
+    type: Object,
+    required: true,
   },
   id: {
-    type: String,
+    type: Number,
     required: true,
   },
   trailerLink: {
@@ -51,7 +49,8 @@ const movieSchema = new mongoose.Schema({
     },
   },
   owner: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user',
     required: true,
   },
   createdAt: {
