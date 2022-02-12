@@ -38,11 +38,10 @@ module.exports.postMovie = (req, res, next) => {
     year,
     description,
     image,
-    trailer,
     nameRU,
     nameEN,
-    thumbnail,
-    movieId,
+    trailerLink,
+    id,
   } = req.body;
   Movie.create({
     country,
@@ -51,11 +50,10 @@ module.exports.postMovie = (req, res, next) => {
     year,
     description,
     image,
-    trailer,
     nameRU,
     nameEN,
-    thumbnail,
-    movieId,
+    trailerLink,
+    id,
     owner,
   })
     .then((movie) => res.send(movie))
