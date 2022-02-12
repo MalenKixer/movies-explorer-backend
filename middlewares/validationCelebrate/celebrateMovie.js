@@ -8,12 +8,11 @@ module.exports.celebratePost = celebrate({
     duration: Joi.number().required(),
     year: Joi.string().required(),
     description: Joi.string().required(),
-    image: Joi.string().custom(validateUrl).required(),
-    trailer: Joi.string().custom(validateUrl).required(),
+    image: Joi.string().required(),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
-    thumbnail: Joi.string().custom(validateUrl).required(),
-    movieId: Joi.string().required(),
+    trailerLink: Joi.string().custom(validateUrl).required(),
+    id: Joi.string().required(),
   }),
 });
 module.exports.celebrateDelete = celebrate({
