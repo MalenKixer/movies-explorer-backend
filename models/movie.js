@@ -34,12 +34,6 @@ const movieSchema = new mongoose.Schema({
     url: {
       type: String,
       required: true,
-      validate: {
-        validator(avatar) {
-          return validatorUrl(avatar);
-        },
-        message: 'Неправильный формат ссылки',
-      },
     },
   },
   trailer: {
