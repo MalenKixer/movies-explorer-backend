@@ -31,10 +31,7 @@ const movieSchema = new mongoose.Schema({
     required: true,
   },
   image: {
-    url: {
-      type: String,
-      required: true,
-    },
+    required: true,
   },
   id: {
     type: Number,
