@@ -8,7 +8,7 @@ module.exports.celebratePost = celebrate({
     duration: Joi.number().required(),
     year: Joi.string().required(),
     description: Joi.string().required(),
-    image: Joi.string().required(),
+    image: Joi.object().keys({ url: Joi.string().required() }),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
     trailerLink: Joi.string().custom(validateUrl).required(),
