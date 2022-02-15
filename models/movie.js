@@ -53,6 +53,10 @@ const movieSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  id: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model('movie', movieSchema);

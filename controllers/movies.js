@@ -2,6 +2,7 @@ const Movie = require('../models/movie');
 const BadRequestError = require('../utils/errors/BadRequestError');
 const NotFoundError = require('../utils/errors/NotFoundError');
 const ForbiddenError = require('../utils/errors/ForbiddenError');
+const ConflictError = require('../utils/errors/ConflictError');
 
 module.exports.getMovies = (req, res, next) => {
   Movie.find({})
@@ -43,26 +44,36 @@ module.exports.postMovie = (req, res, next) => {
     trailerLink,
     id,
   } = req.body;
-  Movie.create({
-    country,
-    director,
-    duration,
-    year,
-    description,
-    image,
-    nameRU,
-    nameEN,
-    trailerLink,
-    id,
-    owner,
-  })
-    .then((movie) => res.send(movie))
-    .catch((err) => {
-      if (err.name === 'ValidationError') {
-        next(new BadRequestError('Переданы некорректные данные при создании фильма'));
+  Movie.findOne({ id })
+    .then((result) => {
+      if (!result) {
+        Movie.create({
+          country,
+          director,
+          duration,
+          year,
+          description,
+          image,
+          nameRU,
+          nameEN,
+          trailerLink,
+          id,
+          owner,
+        })
+          .then((movie) => res.send(movie))
+          .catch((err) => {
+            if (err.name === 'ValidationError') {
+              next(new BadRequestError('Переданы некорректные данные при создании фильма'));
+            } else {
+              next(err);
+            }
+          });
       } else {
-        next(err);
+        next(new ConflictError('Данный фильм уже сохранен.'));
       }
+    })
+    .catch((err) => {
+      next(err);
     });
 };
 module.exports.likeMovie = (req, res, next) => {
