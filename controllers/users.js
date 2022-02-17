@@ -25,7 +25,6 @@ module.exports.createUser = (req, res, next) => {
           maxAge: 3600000 * 24 * 7, // создать токен на 7 дней
           httpOnly: true,
           sameSite: 'None',
-          secure: false,
         })
         .send(user);
     })
@@ -33,7 +32,7 @@ module.exports.createUser = (req, res, next) => {
       if (err.name === 'MongoServerError' && err.code === 11000) {
         next(new ConflictError('Данная почта уже существует. Пожалуйста, введите другую почту'));
       } else if (err.name === 'ValidationError') {
-        next(new BadRequestError('Переданы некорректные данные при создании пользователя'))
+        next(new BadRequestError('Переданы некорректные данные при создании пользователя'));
       } else {
         next(err);
       }
@@ -53,7 +52,6 @@ module.exports.login = (req, res, next) => {
           maxAge: 3600000 * 24 * 7, // создать токен на 7 дней
           httpOnly: true,
           sameSite: 'None',
-          secure: false,
         })
         .send({ token });
     })
