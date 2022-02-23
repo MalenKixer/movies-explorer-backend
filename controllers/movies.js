@@ -6,7 +6,7 @@ const ConflictError = require('../utils/errors/ConflictError');
 
 module.exports.getMovies = (req, res, next) => {
   const owner = req.user._id;
-  Movie.findById({ owner })
+  Movie.find({ owner })
     .then((movies) => res.send(movies))
     .catch(next);
 };
