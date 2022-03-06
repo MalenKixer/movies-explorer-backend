@@ -45,7 +45,7 @@ module.exports.postMovie = (req, res, next) => {
     trailerLink,
     id,
   } = req.body;
-  Movie.findOne({ id })
+  Movie.findOne({ id, nameRU })
     .then((result) => {
       if (!result) {
         Movie.create({
