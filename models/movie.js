@@ -8,7 +8,6 @@ const movieSchema = new mongoose.Schema({
   },
   nameEN: {
     type: String,
-    required: true,
   },
   country: {
     type: String,
