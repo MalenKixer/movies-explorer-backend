@@ -45,7 +45,7 @@ module.exports.postMovie = (req, res, next) => {
     trailerLink,
     id,
   } = req.body;
-  Movie.findOne({ id, nameRU })
+  Movie.findOne({ id, owner })
     .then((result) => {
       if (!result) {
         Movie.create({
@@ -70,7 +70,7 @@ module.exports.postMovie = (req, res, next) => {
             }
           });
       } else {
-        next(new ConflictError(JSON.stringify(result)));
+        next(new ConflictError('Данный фильм уже сохранен.'));
       }
     })
     .catch((err) => {
