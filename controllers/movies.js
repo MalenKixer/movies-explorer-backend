@@ -70,7 +70,7 @@ module.exports.postMovie = (req, res, next) => {
             }
           });
       } else {
-        next(new ConflictError('Данный фильм уже сохранен.'));
+        next(new ConflictError(JSON.stringify(result)));
       }
     })
     .catch((err) => {

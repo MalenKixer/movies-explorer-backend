@@ -10,7 +10,7 @@ module.exports.celebratePost = celebrate({
     description: Joi.string().required(),
     image: Joi.string().required(),
     nameRU: Joi.string().required(),
-    nameEN: Joi.string(),
+    nameEN: Joi.string().required(),
     trailerLink: Joi.string().custom(validateUrl).required(),
     id: Joi.number().required(),
   }),
