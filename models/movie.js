@@ -8,15 +8,7 @@ const movieSchema = new mongoose.Schema({
   },
   nameEN: {
     type: String,
-    validate: {
-      validator(text) {
-        if (text === '') {
-          return false;
-        }
-        return false;
-      },
-      message: '',
-    },
+    required: true,
   },
   country: {
     type: String,
