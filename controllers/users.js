@@ -23,7 +23,6 @@ module.exports.createUser = (req, res, next) => {
       res
         .cookie('jwt', token, {
           maxAge: 3600000 * 24 * 7, // создать токен на 7 дней
-          httpOnly: true,
           sameSite: 'None',
           secure: 'true',
         })
@@ -51,7 +50,6 @@ module.exports.login = (req, res, next) => {
       res
         .cookie('jwt', token, {
           maxAge: 3600000 * 24 * 7, // создать токен на 7 дней
-          httpOnly: true,
           sameSite: 'None',
           secure: 'true',
         })
@@ -61,7 +59,7 @@ module.exports.login = (req, res, next) => {
 };
 module.exports.deleteToken = (req, res) => {
   res
-    .clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true })
+    .clearCookie('jwt', { sameSite: 'None', secure: true })
     .send({ message: 'Токен успешно удалён' });
 };
 module.exports.checkToken = (req, res) => {
