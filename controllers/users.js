@@ -21,7 +21,7 @@ module.exports.createUser = (req, res, next) => {
           { expiresIn: '7d' },
         );
         res
-          .cookie('jt', token, {
+          .cookie('jwt', token, {
             maxAge: 3600000 * 24 * 7, // создать токен на 7 дней
             sameSite: 'none',
             httpOnly: false,
