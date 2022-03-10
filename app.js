@@ -24,7 +24,6 @@ mongoose.connect(NODE_ENV === 'production' ? MONGO_SERVER : 'mongodb://127.0.0.1
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(cookieParser());
 app.use(helmet());
 app.use(limiter);
 app.use(cors({
