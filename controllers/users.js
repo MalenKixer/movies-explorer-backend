@@ -13,20 +13,25 @@ module.exports.createUser = (req, res, next) => {
   bcrypt.hash(password, 10)
     .then((hash) => User.create({
       name, email, password: hash,
-    }))
-    .then((user) => {
-      const token = jwt.sign(
-        { _id: user._id },
-        NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
-        { expiresIn: '7d' },
-      );
-      res
-        .cookie('jwt', token, {
-          maxAge: 3600000 * 24 * 7, // создать токен на 7 дней
-          httpOnly: true,
-        })
-        .send(user);
     })
+      .then((user) => {
+        const token = jwt.sign(
+          { _id: user._id },
+          NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
+          { expiresIn: '7d' },
+        );
+        res
+          .cookie('jwt', token, {
+            maxAge: 3600000 * 24 * 7, // создать токен на 7 дней
+            httpOnly: true,
+            sameSite: 'None',
+            secure: true,
+          })
+          .send(user);
+      })
+      .catch((error) => {
+        throw error;
+      }))
     .catch((err) => {
       if (err.name === 'MongoServerError' && err.code === 11000) {
         next(new ConflictError('Данная почта уже существует. Пожалуйста, введите другую почту'));
@@ -50,6 +55,8 @@ module.exports.login = (req, res, next) => {
         .cookie('jwt', token, {
           maxAge: 3600000 * 24 * 7, // создать токен на 7 дней
           httpOnly: true,
+          sameSite: 'None',
+          secure: true,
         })
         .send({ token });
     })
